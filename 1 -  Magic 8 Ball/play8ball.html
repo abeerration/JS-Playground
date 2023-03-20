@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Magic 8 Ball</title>
+
+    <style>
+        body {
+            text-align: center;
+        }
+
+        #question {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+            color: black;
+        }
+
+        #ballImage {
+            /* animation: wiggle 2s linear infinite; */
+            transform-origin: 50% 5em;
+        }
+
+        /* Keyframes */
+        @keyframes wiggle {
+            0%, 7% {
+                transform: rotateZ(0);
+            }
+            15% {
+                transform: rotateZ(-15deg);
+            }
+            20% {
+                transform: rotateZ(10deg);
+            }
+            25% {
+                transform: rotateZ(-10deg);
+            }
+            30% {
+                transform: rotateZ(6deg);
+            }
+            35% {
+                transform: rotateZ(-4deg);
+            }
+            40%, 100% {
+                transform: rotateZ(0);
+            }
+        }
+
+        #answerText {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 28px;
+            color: darkred;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        #answerButton {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+<p id="question">Want a Magic 8 Ball prediction? Ask your question and press the button!</p>
+
+<div>
+    <img id="ballImage" src="8ball.jpg">
+</div>
+
+<div id="answerText"></div>
+<button id="answerButton" onclick="show8BallAnswer()">Answer My Question</button>
+
+<script>
+    const magic8BallAnswers = [
+        // Affirmative answers
+        "It is certain.", "It is decidedly so.", "Without a doubt.", "Yes definitely.",
+        "You may rely on it.", "As I see it, yes.", "Most likely.", "Outlook good.",
+        "Yes.", "Signs point to yes.",
+
+        // Non-committal answers
+        "Reply hazy, try again.", "Ask again later.", "Better not tell you now.",
+        "Cannot predict now.", "Concentrate and ask again.",
+
+        // Negative answers
+        "Don't count on it.", "My reply is no.", "My sources say no.", "Outlook not so good.",
+        "Very doubtful."
+    ];
+
+    var getNew8BallAnswer = function () {
+        var random8BallNum = Math.floor(Math.random() * magic8BallAnswers.length);
+        return magic8BallAnswers[random8BallNum];
+    };
+
+    var show8BallAnswer = function () {
+        document.getElementById("answerText").innerHTML = "";
+
+        var ballImg = document.getElementById("ballImage");
+        if (ballImg.src.match("8ball.jpg")) {
+            ballImg.src = "8ball-cycle.jpg";
+            ballImg.style.animation = "wiggle 2s infinite linear";
+            document.getElementById("answerButton").disabled = true;
+            setTimeout(stopTimer, 1000);
+        }
+    };
+
+    function stopTimer() {
+        var ballImg = document.getElementById("ballImage");
+        ballImg.style.animation = "";
+        ballImg.src = "8ball.jpg";
+        document.getElementById("answerButton").disabled = false;
+        document.getElementById("answerText").innerHTML = "<b>" + getNew8BallAnswer() + "</b>";
+        document.getElementById("answerButton").innerHTML = "Try Again?";
+    }
+
+</script>
+</body>
+</html>
