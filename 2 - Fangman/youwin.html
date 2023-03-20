@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fangman</title>
+
+    <style>
+        @font-face {
+            font-family: Creepster;
+            src: url("Creepster-Regular.ttf");
+        }
+
+        body {
+            background: url('bg-graveyard.jpg') no-repeat fixed center;
+            background-color: black;
+        }
+
+        .centeredBoxDiv {
+            text-align: center;
+        }
+
+        #youWinTitle {
+            font-family: Creepster, Arial, Helvetica, sans-serif;
+            font-size: 100px;
+            font-weight: bold;
+            color: lime;
+            background: rgba(128, 0, 128, 0.3);
+
+            margin: 0;
+            position: absolute;
+            bottom: 155px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            text-shadow: 0.075em 0.08em 0.1em #301934;
+            z-index: 999;
+        }
+
+        #youWinSubtitle {
+            font-family: Creepster, Arial, Helvetica, sans-serif;
+            font-size: 70px;
+            font-weight: bold;
+            color: red;
+            background: rgba(128, 0, 128, 0.3);
+
+            margin: 0;
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            text-shadow: 0.075em 0.08em 0.1em #301934;
+            z-index: 999;
+        }
+
+        /*.doit {
+            height: 400px;
+            width: 400px;
+            border-radius: 50%;
+
+            max-height: 100%;
+            max-width: 100%;
+            position: absolute;
+            top: 60px;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+
+            background-color: darkslateblue;
+        }*/
+
+        #vampireMascot {
+            max-height: 100%;
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+
+        #footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .playAgainButton {
+            appearance: button;
+            background-color: lightsalmon;
+            border: solid transparent;
+            border-radius: 16px;
+            border-width: 0 0 4px;
+            box-sizing: border-box;
+            color: #FFFFFF;
+            cursor: pointer;
+            display: inline-block;
+            font-family: Arial, Helvetica, sans-serif;;
+            font-size: 30px;
+            font-weight: 700;
+            letter-spacing: .8px;
+            line-height: 20px;
+            outline: none;
+            overflow: visible;
+            padding: 13px 16px;
+            text-align: center;
+            text-transform: uppercase;
+            touch-action: manipulation;
+            transform: translateZ(0);
+            transition: filter .2s;
+            user-select: none;
+            -webkit-user-select: none;
+            margin-bottom: 50px;
+            white-space: nowrap;
+        }
+
+        .playAgainButton:after {
+            background-clip: padding-box;
+            background-color: orangered;
+            border: solid transparent;
+            border-radius: 16px;
+            border-width: 0 0 4px;
+            bottom: -4px;
+            content: "";
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: -1;
+        }
+
+        .playAgainButton:main, .playAgainButton:focus {
+            user-select: auto;
+        }
+
+        .playAgainButton:hover:not(:disabled) {
+            filter: brightness(0.7);
+            -webkit-filter: brightness(0.7);
+        }
+
+        .playAgainButton:disabled {
+            cursor: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="centeredBoxDiv">
+    <div id="youWinTitle">You Win!</div>
+    <div id="youWinSubtitle">But I still drink your blood...</div>
+
+    <!-- <div class="dot"> -->
+    <img id="vampireMascot" src="vampire2.png">
+    <!-- </div> -->
+
+    <div id="footer">
+        <button class="playAgainButton" onclick="location.href = 'play.html';">Play Again</button>
+    </div>
+</div>
+</body>
+</html>

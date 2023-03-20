@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fangman</title>
+
+    <style>
+        @font-face {
+            font-family: Creepster;
+            src: url("Creepster-Regular.ttf");
+        }
+
+        body {
+            background: url('bg-halloween.png');
+            background-color: black;
+        }
+
+        .centeredBoxDiv {
+            text-align: center;
+        }
+
+        #gameTitle {
+            font-family: Creepster, Arial, Helvetica, sans-serif;
+            font-size: 70px;
+            font-weight: bold;
+            color: yellowgreen;
+
+            margin: 0;
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            text-shadow: 0.075em 0.08em 0.1em #301934;
+        }
+
+        #word {
+            position: relative;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 27px;
+            font-weight: bold;
+            text-align: center;
+            top: 5px;
+            letter-spacing: 0.2em;
+        }
+
+        #wordPanel {
+            margin: 0;
+            position: absolute;
+            top: 25px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            background-color: white;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #gamePanel {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 50px 50px 20px 50px;
+            border: 5px solid #A0A0a0;
+        }
+
+        #vampGesturesImg {
+            margin-top: 10px;
+        }
+
+        #statusMessage {
+        }
+
+        #submitGuessPanel {
+            position: relative;
+            top: 10px;
+            background-color: white;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #guessedChar {
+            font-family: Arial, Helvetica, sans-serif;;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 25px;
+            margin-right: 5px;
+            width: 80px;
+        }
+
+        #submitButton {
+            font-family: Arial, Helvetica, sans-serif;;
+            font-size: 16px;
+            line-height: 25px;
+        }
+
+        #footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .gameButton {
+            appearance: button;
+            background-color: lightsalmon;
+            border: solid transparent;
+            border-radius: 16px;
+            border-width: 0 0 4px;
+            box-sizing: border-box;
+            color: #FFFFFF;
+            cursor: pointer;
+            display: inline-block;
+            font-family: Arial, Helvetica, sans-serif;;
+            font-size: 30px;
+            font-weight: 700;
+            letter-spacing: .8px;
+            line-height: 20px;
+            outline: none;
+            overflow: visible;
+            padding: 13px 16px;
+            text-align: center;
+            text-transform: uppercase;
+            touch-action: manipulation;
+            transform: translateZ(0);
+            transition: filter .2s;
+            user-select: none;
+            -webkit-user-select: none;
+            margin-bottom: 45px;
+            margin-left: 50px;
+            margin-right: 50px;
+            white-space: nowrap;
+        }
+
+        .gameButton:after {
+            background-clip: padding-box;
+            background-color: orangered;
+            border: solid transparent;
+            border-radius: 16px;
+            border-width: 0 0 4px;
+            bottom: -4px;
+            content: "";
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: -1;
+        }
+
+        .gameButton:main, .gameButton:focus {
+            user-select: auto;
+        }
+
+        .gameButton:hover:not(:disabled) {
+            filter: brightness(0.7);
+            -webkit-filter: brightness(0.7);
+        }
+
+        .gameButton:disabled {
+            cursor: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="centeredBoxDiv">
+    <div id="gameTitle">Fangman</div>
+    <div id="gamePanel">
+        <img id="vampGesturesImg" src="fangman-frames/initial.jpg" alt="Start playing!" />
+        <div id="wordPanel">
+            <span id="word"></span>
+        </div>
+        <p id="statusMessage"></p>
+        <div id="submitGuessPanel">
+            <input id="guessedChar" type="text">
+            <button id="submitButton" type="submit">Submit Guess</button>
+        </div>
+    </div>
+    <div id="footer">
+        <button class="gameButton" onclick="location.href = 'index.html';">Go Back</button>
+        <button class="gameButton" onclick="location.href = 'play.html';">New Game</button>
+    </div>
+</div>
+<script>
+    var allWords = [
+        'abate', 'abstract', 'abysmal', 'accordingly', 'acquisition', 'adapt', 'adept', 'adequate', 'advent',
+        'adversarial', 'advocate', 'aesthetic', 'afford', 'agitate', 'allow', 'allude', 'altercation', 'ambiguous',
+        'ambitious', 'ambivalence', 'analogous', 'annihilate', 'anomaly', 'anticipate', 'antipathy', 'apex',
+        'apprehension', 'articulate', 'artificial', 'assertion', 'austere', 'authenticity', 'avenue', 'avid', 'basic',
+        'bear', 'benevolent', 'beverage', 'bias', 'bittersweet', 'bolster', 'boost', 'brawl', 'brevity', 'candid',
+        'candor', 'capitalize', 'capture', 'civic', 'clinical', 'clout', 'coarse', 'coincide', 'commission',
+        'comparable', 'competent', 'complacent', 'complement', 'concede', 'conceive', 'condone', 'conducive', 'conduct',
+        'confide', 'confine', 'consensus', 'constitute', 'contemplate', 'contend', 'contradict', 'controversial',
+        'conventional', 'convey', 'conviction', 'corroborate', 'counteract', 'counterargument', 'counterproductive',
+        'culmination', 'cultivate', 'decree', 'deference', 'deficient', 'demonstrate', 'demur', 'deplete', 'desolate',
+        'devise', 'dilemma', 'diligence', 'diminish', 'dire', 'discord', 'disdain', 'dismay', 'disparage', 'dispatch',
+        'diversification', 'doctrine', 'dominion', 'dreary', 'dubious', 'eccentric', 'egregious', 'eloquent', 'eminent',
+        'emit', 'emphatic', 'empirical', 'endow', 'endure', 'entail', 'entrenched', 'enumerate', 'envy', 'erratic',
+        'establish', 'evoke', 'exacerbate', 'excel', 'exert', 'exhilarating', 'expend',  'exploit', 'facilitate',
+        'feasibility', 'ferocity', 'fiscal', 'flourish', 'fluctuate', 'foment', 'foreseeable', 'frankly',
+        'freewheeling', 'fundamental', 'galvanizing', 'geriatric', 'gratitude', 'hostile', 'hypothetical',
+        'ignominious', 'impart', 'impartiality', 'imposing', 'imposition', 'imprudent', 'incite', 'indifference',
+        'indiscriminately', 'indulge', 'infer', 'innovative', 'insatiable', 'inversion', 'invoke',  'irreconcilable',
+        'lament', 'locomotion', 'lucrative', 'malicious', 'malleable', 'materialistic', 'melodramatic', 'modest',
+        'modify', 'momentous', 'novel', 'nuance', 'null', 'objectivity', 'obsolete', 'omnipotent', 'onset', 'opine',
+        'opulent', 'ornate', 'oust', 'paramount', 'peculiar', 'perish', 'persecute', 'petulant', 'pinnacle', 'pitiable',
+        'plausible', 'postulate', 'potent', 'pragmatic', 'precedent', 'predecessor', 'prescribe', 'principle',
+        'prohibit', 'prompt', 'promulgate', 'prosecute', 'provocative', 'qualitative', 'quantitative', 'quirk',
+        'rambling', 'rambunctious', 'ramify', 'rash', 'raw', 'readily', 'reconsideration', 'reform', 'refute',
+        'reinforce', 'reluctantly', 'renounce', 'reproach', 'repudiate', 'retention', 'satiated', 'savvy', 'scandalous',
+        'scorn', 'scrupulous', 'scrutinize', 'secrete', 'sentiment', 'sheer', 'simple', 'sinister', 'solidarity',
+        'sparingly', 'spawn', 'spur', 'squalid', 'stark', 'static', 'subordinate', 'subsequently', 'substantial',
+        'substantiate', 'subtle', 'sufficient', 'surly', 'surmount', 'susceptible', 'tactful', 'taut', 'teeming',
+        'temperament', 'tentative', 'transparent', 'treacherous', 'tremendous', 'ubiquitous', 'unadorned', 'undermine',
+        'underscore', 'undulate', 'unilateral', 'unjust', 'unmitigated', 'unprecedented', 'unveil', 'urge', 'validate',
+        'viability', 'vital', 'vow', 'warrant', 'yield'
+    ];
+
+    var selectedWord = allWords[Math.floor(Math.random() * allWords.length)];
+    var MAX_TRIES = 9;
+    var numTriesLeft = MAX_TRIES;
+    var guessedLetter;
+
+    var letterBeenGuessedBefore = {
+        'a': false, 'b': false, 'c': false, 'd': false, 'e': false, 'f': false,
+        'g': false, 'h': false, 'i': false, 'j': false, 'k': false, 'l': false,
+        'm': false, 'n': false, 'o': false, 'p': false, 'q': false, 'r': false,
+        's': false, 't': false, 'u': false, 'v': false, 'w': false, 'x': false,
+        'y': false, 'z': false
+    }
+
+    alert("Selected word: " + selectedWord + "\nTries remaining: " + numTriesLeft);
+
+    var blanksToFill = [];
+    for (var i = 0; i < selectedWord.length; i++) {
+        blanksToFill.push("_");
+    }
+
+    document.getElementById("word").textContent = blanksToFill.join("").toString();
+
+    var letterMatched, numMatches;
+    var playerWon = false;
+
+    window.onload = function() {
+        document.getElementById("statusMessage").textContent = numTriesLeft + " tries remaining. " +
+            "Enter a guess letter.";
+        document.getElementById("guessedChar").value = "";
+        document.getElementById("guessedChar").focus();
+    }
+
+    document.getElementById("submitButton").onclick = function() {
+        if (numTriesLeft > 0) {
+            guessedLetter = document.getElementById("guessedChar").value
+            guessedLetter = guessedLetter.toLowerCase();
+
+            if (!isAlphabet(guessedLetter) || guessedLetter.length != 1) {
+                alert("Please enter a single letter from the English alphabet!");
+                guessedLetter = document.getElementById("guessedChar").value = "";
+                document.getElementById("guessedChar").focus();
+                return;
+            }
+
+            letterMatched = false;
+            numMatches = 0;
+
+            for (var i = 0; i < selectedWord.length; i++) {
+                if (selectedWord[i] == guessedLetter) {
+                    letterMatched = true;
+                    numMatches++;
+                    blanksToFill[i] = guessedLetter;
+                }
+            }
+
+            if (blanksToFill.indexOf("_") === -1) {
+                playerWon = true;
+                alert("Congrats! You guessed `" + selectedWord + "` correctly!");
+                window.location.href = "youwin.html";
+            }
+
+            if (letterMatched === false) {
+                numTriesLeft--;
+                showWrongGuessGesture(numTriesLeft);
+            }
+            else {
+                if (numMatches > 1 && numTriesLeft === 1 && letterBeenGuessedBefore[guessedLetter] == false) {
+                    numTriesLeft = MAX_TRIES;
+                    showPeakMenaceInstantEndGesture();
+                }
+                else if (letterBeenGuessedBefore[guessedLetter] != true) {
+                    showRightGuessGesture();
+                }
+                letterBeenGuessedBefore[guessedLetter] = true;
+            }
+
+            document.getElementById("statusMessage").textContent = numTriesLeft + " tries remaining. " +
+                "Enter a guess letter.";
+            document.getElementById("guessedChar").value = "";
+            document.getElementById("guessedChar").focus();
+        }
+
+        if (numTriesLeft === 0) {
+            alert("Your tries are over! The correct word was `" + selectedWord + "`.");
+            window.location.href = "youlose.html";
+        }
+
+        var blanksFilled = blanksToFill.join("");
+        document.getElementById("word").textContent = blanksToFill.join("").toString();
+    }
+
+    function isAlphabet(c) {
+        var letterAscii = c.charCodeAt(0);
+        if ((letterAscii >= 65 && letterAscii < 91) || (letterAscii >= 97 && letterAscii < 123)) {
+            return letterAscii;
+        }
+    }
+
+    function showWrongGuessGesture(numTriesLeft) {
+        if (numTriesLeft > MAX_TRIES - 1 || numTriesLeft < 1)
+            return;
+        var gestureFileName1 = numTriesLeft + "-tries-left-a.jpg";
+        var gestureFileName2 = numTriesLeft + "-tries-left-b.jpg";
+
+        document.getElementById("vampGesturesImg").src = "fangman-frames/menace/" + gestureFileName1;
+        setTimeout(function() {
+            document.getElementById("vampGesturesImg").src = "fangman-frames/menace/" + gestureFileName2;
+        }, 100);
+    }
+
+    function showRightGuessGesture() {
+        var prevImgSrc = document.getElementById("vampGesturesImg").src;
+        var newSrc;
+
+        document.getElementById("vampGesturesImg").src = "fangman-frames/appreciate.gif";
+
+        // i.e. if the previous guess caused a return from peak menace to full 9 tries then we
+        //  don't want to display menace-instant-end.gif to be substituted and displayed again
+        if (prevImgSrc.endsWith("menace-instant-end.gif")) {
+            newSrc = "fangman-frames/initial.jpg";
+        }
+        else {
+            newSrc = prevImgSrc;
+        }
+
+        setTimeout(function() {
+            document.getElementById("vampGesturesImg").src = newSrc;
+        }, 900);
+
+    }
+
+    function showPeakMenaceInstantEndGesture() {
+        document.getElementById("vampGesturesImg").src = "fangman-frames/menace-instant-end.gif";
+    }
+
+</script>
+</body>
+</html>
