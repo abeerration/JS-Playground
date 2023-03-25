@@ -1,6 +1,6 @@
 # JS-Playground
 
-JavaScript code samples, experiments, mini games & apps, etc
+JavaScript code samples, experiments, mini apps, etc
 
 1. [Magic 8 Ball](https://github.com/abeerration/JS-Playground/tree/main/1%20-%20%20Magic%208%20Ball)
 2. [Fangman](https://github.com/abeerration/JS-Playground/tree/main/2%20-%20Fangman)
