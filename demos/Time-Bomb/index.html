@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Time Bomb</title>
+
+    <style>
+        body {
+            background: url('timebomb.jpg') no-repeat fixed center;
+            background-size: 60%;
+            background-color: #112133;
+        }
+
+        .centeredBoxDiv {
+            text-align: center;
+        }
+
+        #gameTitle {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 40px;
+            font-weight: bold;
+            color: white;
+
+            margin: 0;
+            position: absolute;
+            top: 7%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            text-shadow: 0.075em 0.08em 0.1em #301934;
+        }
+
+        .playGameButton {
+            appearance: button;
+            background-color: #1899D6;
+            border: solid transparent;
+            border-radius: 16px;
+            border-width: 0 0 4px;
+            box-sizing: border-box;
+            color: #FFFFFF;
+            cursor: pointer;
+            display: inline-block;
+            font-family: Arial, Helvetica, sans-serif;;
+            font-size: 30px;
+            font-weight: 700;
+            letter-spacing: .8px;
+            line-height: 20px;
+            outline: none;
+            overflow: visible;
+            padding: 13px 16px;
+            text-align: center;
+            text-transform: uppercase;
+            touch-action: manipulation;
+            transform: translateZ(0);
+            transition: filter .2s;
+            user-select: none;
+            -webkit-user-select: none;
+            margin-top: 42%;
+            white-space: nowrap;
+        }
+
+        .playGameButton:after {
+            background-clip: padding-box;
+            background-color: #5D3FD3;
+            border: solid transparent;
+            border-radius: 16px;
+            border-width: 0 0 4px;
+            bottom: -4px;
+            content: "";
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: -1;
+        }
+
+        .playGameButton:main, .playGameButton:focus {
+            user-select: auto;
+        }
+
+        .playGameButton:hover:not(:disabled) {
+            filter: brightness(1.1);
+            -webkit-filter: brightness(1.1);
+        }
+
+        .playGameButton:disabled {
+            cursor: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="centeredBoxDiv">
+    <div id="gameTitle">Time Bomb</div>
+    <button class="playGameButton" onclick="location.href = 'bombsimu.html';">Click to Play</button>
+</div>
+
+<script>
+
+</script>
+</body>
+</html>
