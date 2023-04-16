@@ -93,13 +93,18 @@
     <button id="startButton" onclick="bombStart()">Start Bomb</button>
 </div>
 
-<div id="bombTimer">07:00</div>
+<div id="bombTimer"></div>
     <img id="bombImage" src="timebomb.jpg">
 </div>
 
 <div id="statusText">Press Start Bomb button.</div>
 
 <script>
+  var rng = document.getElementById("");
+  document.getElementById("bombTimer").innerHTML =
+    ((blastAfterSecsInput.value < 10) ? ("0" + blastAfterSecsInput.value) : blastAfterSecsInput.value)
+    + ":00";
+
   var setupRangeSliderEvents = function(inputElementId, statusElementId, isBlastElement = false) {
     var rng = document.getElementById(inputElementId);
 
@@ -177,6 +182,8 @@
     document.getElementById('startAfterSecsInput').disabled = false;
     document.getElementById('blastAfterSecsInput').disabled = false;
     document.getElementById('startButton').disabled = false;
+
+    setTimeout(() => {document.getElementById('statusText').innerHTML = "Press Start Bomb button."}, oneSec * 2);    
   }
 
   var bombStatus = function() {
