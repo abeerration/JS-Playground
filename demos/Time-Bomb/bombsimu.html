@@ -84,12 +84,12 @@
 <h1 id="heading">Time Bomb Simulation</h1>
 
 <div class="controls">
-    <label for="startAfterSecsInput"><b>Start After: </b><span>0</span> secs</label>
-    <input id="startAfterSecsInput" type="range"  min="0" max="9" list="markers" value="3">
-    <br><br>
-    <label for="blastAfterSecsInput"><b>Blast After: </b><span>0</span> secs</label>
-    <input id="blastAfterSecsInput" type="range"  min="0" max="9" list="markers" value="7">
-    <br><br>
+    <label for="startAfterSecsInput"><b>Start After: </b><span id="startAfterSpan">3</span> secs</label>
+    <input id="startAfterSecsInput" type="range" min="0" max="10" value="3"><br><br>
+
+    <label for="blastAfterSecsInput"><b>Blast After: </b><span id="blastAfterSpan">7</span> secs</label>
+    <input id="blastAfterSecsInput" type="range" min="0" max="10" value="7"><br><br>
+
     <button id="startButton" onclick="bombStart()">Start Bomb</button>
 </div>
 
@@ -100,17 +100,49 @@
 <div id="statusText">Press Start Bomb button.</div>
 
 <script>
-  var startTickAfterSecs = 3;
-  var blastInSecs = 7;
+    var setupRangeSliderEvents = function(inputElementId, statusElementId) {
+      var rng = document.getElementById(inputElementId);
+
+      var listener = function() {
+        window.requestAnimationFrame(function() {
+          document.getElementById(statusElementId).innerHTML = rng.value;
+        });
+      };
+
+      rng.addEventListener("mousedown", function() {
+        listener();
+        rng.addEventListener("mousemove", listener);
+      });
+
+      rng.addEventListener("mouseup", function() {
+        rng.removeEventListener("mousemove", listener);
+      });
+
+      rng.addEventListener("keydown", listener);
+
+      return rng.value;
+  }
+
+  setupRangeSliderEvents("startAfterSecsInput", "startAfterSpan");
+  setupRangeSliderEvents("blastAfterSecsInput", "blastAfterSpan");
+
   var oneSec = 1000;
   var timeoutId, intervalId;
 
   var bombStart = function() {
+    var startTickAfterSecs = document.getElementById('startAfterSecsInput').value;
     alert("The bomb starts ticking after " + startTickAfterSecs + " seconds.");
-    setTimeout(bombStartTicking, 3 * oneSec );
+
+    document.getElementById('startAfterSecsInput').disabled = true;
+    document.getElementById('blastAfterSecsInput').disabled = true;
+    document.getElementById('startButton').disabled = true;
+
+    setTimeout(bombStartTicking, startTickAfterSecs * oneSec);
   }
 
   var bombStartTicking = function() {
+    var blastInSecs = document.getElementById('blastAfterSecsInput').value;
+
     ans = confirm("The bomb will now start ticking.\n\n" +
     "It will go off after " + blastInSecs + " seconds unless you manage to press the right keyboard key.\n\n" +
     "You okay with that, champ?");
@@ -130,8 +162,10 @@
   }
 
   var bombBlast = function() {
-    console.log(blastInSecs); // print final '1'
     alert("KABOOM!!!");
+    document.getElementById('startAfterSecsInput').disabled = false;
+    document.getElementById('blastAfterSecsInput').disabled = false;
+    document.getElementById('startButton').disabled = false;
   }
 
   var bombStatus = function() {
