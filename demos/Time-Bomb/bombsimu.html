@@ -93,39 +93,45 @@
     <button id="startButton" onclick="bombStart()">Start Bomb</button>
 </div>
 
-<div id="bombTimer">00:00</div>
+<div id="bombTimer">07:00</div>
     <img id="bombImage" src="timebomb.jpg">
 </div>
 
 <div id="statusText">Press Start Bomb button.</div>
 
 <script>
-    var setupRangeSliderEvents = function(inputElementId, statusElementId) {
-      var rng = document.getElementById(inputElementId);
+  var setupRangeSliderEvents = function(inputElementId, statusElementId, isBlastElement = false) {
+    var rng = document.getElementById(inputElementId);
 
-      var listener = function() {
-        window.requestAnimationFrame(function() {
-          document.getElementById(statusElementId).innerHTML = rng.value;
-        });
-      };
-
-      rng.addEventListener("mousedown", function() {
-        listener();
-        rng.addEventListener("mousemove", listener);
+    var listener = function() {
+      window.requestAnimationFrame(function() {
+      document.getElementById(statusElementId).innerHTML = rng.value;
       });
 
-      rng.addEventListener("mouseup", function() {
-        rng.removeEventListener("mousemove", listener);
-      });
+      if (isBlastElement) {
+        document.getElementById("bombTimer").innerHTML =
+          ((rng.value < 10) ? ("0" + rng.value) : rng.value) + ":00";
+      }
+    };
 
-      rng.addEventListener("keydown", listener);
+    rng.addEventListener("mousedown", function() {
+      listener();
+      rng.addEventListener("mousemove", listener);
+    });
 
-      return rng.value;
+    rng.addEventListener("mouseup", function() {
+      rng.removeEventListener("mousemove", listener);
+    });
+
+    rng.addEventListener("keydown", listener);
+
+    return rng.value;
   }
 
   setupRangeSliderEvents("startAfterSecsInput", "startAfterSpan");
-  setupRangeSliderEvents("blastAfterSecsInput", "blastAfterSpan");
+  setupRangeSliderEvents("blastAfterSecsInput", "blastAfterSpan", true);
 
+  var blastInSecs = document.getElementById('blastAfterSecsInput').value;
   var oneSec = 1000;
   var timeoutId, intervalId;
 
@@ -141,7 +147,7 @@
   }
 
   var bombStartTicking = function() {
-    var blastInSecs = document.getElementById('blastAfterSecsInput').value;
+    blastInSecs = document.getElementById('blastAfterSecsInput').value;
 
     ans = confirm("The bomb will now start ticking.\n\n" +
     "It will go off after " + blastInSecs + " seconds unless you manage to press the right keyboard key.\n\n" +
@@ -162,14 +168,19 @@
   }
 
   var bombBlast = function() {
-    alert("KABOOM!!!");
+    document.getElementById('bombTimer').innerHTML = '00:00';
+    document.getElementById('statusText').innerHTML = "<b>KABOOM!!!</b>";
+
+    clearTimeout(timeoutId);
+    clearInterval(intervalId);
+
     document.getElementById('startAfterSecsInput').disabled = false;
     document.getElementById('blastAfterSecsInput').disabled = false;
     document.getElementById('startButton').disabled = false;
   }
 
   var bombStatus = function() {
-    console.log(blastInSecs--);
+    document.getElementById('bombTimer').innerHTML = "0" + (--blastInSecs) + ":00";
   }
 </script>
 
