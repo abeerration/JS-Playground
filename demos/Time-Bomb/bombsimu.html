@@ -12,10 +12,10 @@
 
         #heading {
             font-family: Arial, Helvetica, sans-serif;
-            font-size: 40px;
+            font-size: 60px;
             font-weight: bold;
             color: #3E0C35;
-            text-shadow: 0.050em 0.01em 0.1em #E41E3B;
+            text-shadow: 0.050em 0.01em 0.1em #93767A;
         }
 
         #bombImage {
@@ -39,17 +39,27 @@
             z-index: 999;
 
             font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
             font-size: 60px;
+
             color: #70C7B1;
             background-color: #3C333F;
+            text-shadow: 0.050em 0.01em 0.1em #33756C;
         }
 
         #statusText {
             font-family: Arial, Helvetica, sans-serif;
             font-size: 28px;
-            color: darkred;
+            color: #981427;
+
             margin-top: 20px;
             margin-bottom: 20px;
+
+            position: absolute;
+            top: 80%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
         }
 
         #startButton {
@@ -68,8 +78,8 @@
     <img id="bombImage" src="timebomb.jpg">
 </div>
 
-<div id="statusText"></div>
-<button id="startButton" onclick="show8BallAnswer()">Start Bomb</button>
+<div id="statusText">Press Start Bomb button.</div>
+<button id="startButton" onclick="startBomb()">Start Bomb</button>
 
 <script>
   var startTickAfterSecs = 3;
