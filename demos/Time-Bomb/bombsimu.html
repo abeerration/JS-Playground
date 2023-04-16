@@ -154,9 +154,8 @@
   var bombStartTicking = function() {
     blastInSecs = document.getElementById('blastAfterSecsInput').value;
 
-    ans = confirm("The bomb will now start ticking.\n\n" +
-    "It will go off after " + blastInSecs + " seconds unless you manage to press the right keyboard key.\n\n" +
-    "You okay with that, champ?");
+    ans = confirm("The bomb will now start ticking.\n\n" + "It will go off after " + blastInSecs +
+    " seconds unless you manage to press the right keyboard key.\n\n" + "You okay with that, champ?");
 
     if (ans) {
       timeoutId = setTimeout(bombBlast, blastInSecs * oneSec);
@@ -165,7 +164,8 @@
       document.body.addEventListener("keydown", function(event) {
         var keyCode = event.keyCode;
         if (keyCode == 68) { // the 'D' key
-          alert("Bomb defused successfully " + blastInSecs + " second" + ((blastInSecs > 1) ? "s" : "") + " before the blast.");
+          alert("Bomb defused successfully " + blastInSecs + " second" + ((blastInSecs > 1) ? "s" : "")
+            + " before the blast.");
           clearTimeout(timeoutId);
           clearInterval(intervalId);
         }});
@@ -183,7 +183,8 @@
     document.getElementById('blastAfterSecsInput').disabled = false;
     document.getElementById('startButton').disabled = false;
 
-    setTimeout(() => {document.getElementById('statusText').innerHTML = "Press Start Bomb button."}, oneSec * 2);    
+    setTimeout(() => {document.getElementById('statusText').innerHTML = "Press Start Bomb button."}, 
+      oneSec * 2);    
   }
 
   var bombStatus = function() {
