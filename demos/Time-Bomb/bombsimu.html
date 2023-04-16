@@ -7,18 +7,43 @@
     <style>
         body {
             text-align: center;
+            background-color: #F0B462;
         }
 
         #heading {
             font-family: Arial, Helvetica, sans-serif;
             font-size: 24px;
             font-weight: bold;
-            color: black;
+            color: #3E0C35;
         }
 
         #bombImage {
-            /* animation: wiggle 2s linear infinite; */
-            transform-origin: 50% 5em;
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+
+        #bombTimer {
+            margin-top: 15px;
+            margin-left: -12px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+
+            z-index: 999;
+
+            font-size: 50px;
+            color: #70C7B1;
+            background-color: #3C333F;
+            padding-top: 13px;
+            padding-bottom: 13px;
+            padding-left: 13px;
+            padding-right: 13px;
         }
 
         #statusText {
@@ -41,6 +66,7 @@
 <h1 id="heading">Time Bomb Simulation</p>
 
 <div>
+    <div id="bombTimer">56:23</div>
     <img id="bombImage" src="timebomb.jpg">
 </div>
 
