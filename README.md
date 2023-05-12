@@ -3,7 +3,9 @@
   <img src="js.jpg" align="center"/>
 </div>
 <div align="right">
-  <sub><a href="https://www.freepik.com/free-vector/programmers-using-javascript-programming-language-computer-tiny-people-javascript-language-javascript-engine-js-web-development-concept_11669212.htm#from_view=detail_alsolike">Image by vectorjuice</a> on Freepik</a>
+  <sub>
+    <a href="https://www.freepik.com/free-vector/programmers-using-javascript-programming-language-computer-tiny-people-javascript-language-javascript-engine-js-web-development-concept_11669212.htm#from_view=detail_alsolike">Image by vectorjuice</a> on Freepik</a>
+  </sub>
 </div>
 
 JavaScript code samples, experiments, mini apps, etc
