@@ -141,8 +141,10 @@
   var timeoutId, intervalId;
 
   var bombStart = function() {
+
     var startTickAfterSecs = document.getElementById('startAfterSecsInput').value;
-    alert("The bomb starts ticking after " + startTickAfterSecs + " seconds.");
+    document.getElementById('statusText').innerHTML = "The bomb starts ticking after " + startTickAfterSecs + " seconds.";
+    //alert("The bomb starts ticking after " + startTickAfterSecs + " seconds.");
 
   document.getElementById("bombTimer").innerHTML =
     ((blastAfterSecsInput.value < 10) ? ("0" + blastAfterSecsInput.value) : blastAfterSecsInput.value)
@@ -162,6 +164,8 @@
     " seconds unless you manage to press the right keyboard key.\n\n" + "You okay with that, champ?");
 
     if (ans) {
+      document.getElementById('statusText').innerHTML = "The countdown has begun!";
+
       timeoutId = setTimeout(bombBlast, blastInSecs * oneSec);
       intervalId = setInterval(bombStatus, oneSec);
 
@@ -174,11 +178,14 @@
           clearInterval(intervalId);
         }});
     }
+    else {
+      location.href = 'bombsimu.html';
+    }
   }
 
   var bombBlast = function() {
     document.getElementById('bombTimer').innerHTML = '00:00';
-    document.getElementById('statusText').innerHTML = "<b>KABOOM!!!</b>";
+    document.getElementById('statusText').innerHTML = '<p style="font-size: 50pt;"><b><u>KABOOM!!!</u></b></p>';
 
     clearTimeout(timeoutId);
     clearInterval(intervalId);
