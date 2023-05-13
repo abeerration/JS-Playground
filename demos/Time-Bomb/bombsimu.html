@@ -144,7 +144,7 @@
     var startTickAfterSecs = document.getElementById('startAfterSecsInput').value;
     alert("The bomb starts ticking after " + startTickAfterSecs + " seconds.");
 
-    document.getElementById('bombTimer').innerHTML = blastInSecs;
+    document.getElementById('bombTimer').innerHTML = document.getElementById('blastAfterSecsInput').value;
 
     document.getElementById('startAfterSecsInput').disabled = true;
     document.getElementById('blastAfterSecsInput').disabled = true;
